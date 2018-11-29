@@ -12,7 +12,7 @@ podTemplate(label: 'mypod', containers: [
       stage('get code / compile / stage for docker') {
           container('maven') {
               sh 'git clone -b master https://${USERNAME}:${PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
-              sh 'cd mn-wgp'
+              sh 'cd mn-wgp && ls -l'
               sh 'ls -l'
               sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
           }
