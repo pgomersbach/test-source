@@ -15,19 +15,19 @@ podTemplate(label: 'mypod', containers: [
               sh 'whoami'
               sh 'hostname -i'
               sh 'git clone -b master https://${USERNAME}:${PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
-#              sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
+//              sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
           }
       }
 
-#      stage('Maven Build') {
-#          container('maven') {
-#              dir('hello-world-war/') {
-#                  sh 'hostname'
-#                  sh 'hostname -i'
-#                  sh 'mvn clean install'
-#              }
-#          }
-#      }
+//      stage('Maven Build') {
+//          container('maven') {
+//              dir('hello-world-war/') {
+//                  sh 'hostname'
+//                  sh 'hostname -i'
+//                  sh 'mvn clean install'
+//              }
+//          }
+//      }
     }
   }
 }
