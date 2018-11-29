@@ -9,13 +9,9 @@ podTemplate(label: 'mypod', containers: [
   ) {
     node('mypod') {
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'git_credentials',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-      stage('Clone repository') {
-          container('git') {
-              sh 'echo uname=$USERNAME pwd=$PASSWORD'
-              sh 'whoami'
-              sh 'hostname -i'
+      stage('get code / compile / stage for docker') {
+          container('maven') {
               sh 'git clone -b master https://${USERNAME}:${PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
-//              sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
           }
       }
 
