@@ -8,31 +8,25 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('mypod') {
-        stage('Check running containers') {
-            container('docker') {
-                // example to show you can run docker commands when you mount the socket
-                sh 'hostname'
-                sh 'hostname -i'
-                sh 'docker ps'
-            }
-        }
-        
-        stage('Clone repository') {
-            container('git') {
-                sh 'whoami'
-                sh 'hostname -i'
-                sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
-            }
-        }
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'git_credentials',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+      stage('Clone repository') {
+          container('git') {
+              sh 'echo uname=$USERNAME pwd=$PASSWORD'
+              sh 'whoami'
+              sh 'hostname -i'
+              sh 'git clone -b master https://github.com/lvthillo/hello-world-war.git'
+          }
+      }
 
-        stage('Maven Build') {
-            container('maven') {
-                dir('hello-world-war/') {
-                    sh 'hostname'
-                    sh 'hostname -i'
-                    sh 'mvn clean install'
-                }
-            }
-        }
+      stage('Maven Build') {
+          container('maven') {
+              dir('hello-world-war/') {
+                  sh 'hostname'
+                  sh 'hostname -i'
+                  sh 'mvn clean install'
+              }
+          }
+      }
     }
+  }
 }
