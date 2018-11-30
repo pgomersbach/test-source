@@ -8,16 +8,16 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('mypod') {
-      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'git_credentials',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-      stage('get code / compile / stage for docker') {
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GIT_CREDENTIALS',usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+        stage('get code / compile / stage for docker') {
           container('maven') {
-              sh 'git clone -b master https://${USERNAME}:${PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
-              dir ('mn-wgp') {
-                sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
-                sh 'mvn surefire-report:report-only'
-              }
+            sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
+            dir ('mn-wgp') {
+              sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
+              sh 'mvn surefire-report:report-only'
+            }
           }
-      }
+        }
 
 //      stage('Maven Build') {
 //          container('maven') {
@@ -28,6 +28,6 @@ podTemplate(label: 'mypod', containers: [
 //              }
 //          }
 //      }
-    }
+      }
   }
 }
