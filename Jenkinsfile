@@ -13,7 +13,7 @@ podTemplate(label: 'mypod', containers: [
         stage('get code / compile / stage for docker') {
           container('maven') {
             sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
-            sh 'echo $SLACK_URL $"DOCKER_REGISTRY'
+            sh 'echo $SLACK_URL $DOCKER_REGISTRY'
             dir ('mn-wgp') {
               sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
               sh 'mvn surefire-report:report-only'
