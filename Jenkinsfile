@@ -10,7 +10,7 @@ podTemplate(label: 'mypod', containers: [
   node('mypod') {
     container('maven') {
       stage('git checkout') {
-          sh 'git clone -b master https://github.com/pgomersbach/test-source.git'
+          sh 'git clone -b master https://github.com/pgomersbach/test-source.git .'
 //        sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
 //        sh 'echo $SLACK_URL $DOCKER_REGISTRY'
           sh 'pwd'
