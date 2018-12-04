@@ -13,13 +13,12 @@ podTemplate(label: 'mypod', containers: [
           sh 'git clone -b master https://github.com/pgomersbach/test-source.git .'
 //        sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
 //        sh 'echo $SLACK_URL $DOCKER_REGISTRY'
-          sh 'pwd'
-          sh 'ls -la'
       }
-      stage('maven package') {    
-          sh 'mvn package'
-//          sh 'mvn surefire-report:report-only'
-      }
+      stage('maven package') {
+        sh 'mvn package'
+//        sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
+//        sh 'mvn surefire-report:report-only'
+        }
     }
 
 //      stage('Maven Build') {
