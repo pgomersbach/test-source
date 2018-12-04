@@ -8,18 +8,14 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
   node('mypod') {
-    withEnv(["SLACK_URL=https://hooks.slack.com/services/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s","DOCKER_REGISTRY=https://registry.hub.docker.com/v2"]) {
-      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GIT_CREDENTIALS',usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-        stage('get code / compile / stage for docker') {
-          container('maven') {
-            sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
-            sh 'echo $SLACK_URL $DOCKER_REGISTRY'
-            dir ('mn-wgp') {
-              sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
-              sh 'mvn surefire-report:report-only'
-            }
-          }
-        }
+    stage('get code / compile / stage for docker') {
+      container('maven') {
+//        sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
+//        sh 'echo $SLACK_URL $DOCKER_REGISTRY'
+          sh 'mvn package
+//          sh 'mvn surefire-report:report-only'
+      }
+    }
 
 //      stage('Maven Build') {
 //          container('maven') {
@@ -30,7 +26,5 @@ podTemplate(label: 'mypod', containers: [
 //              }
 //          }
 //      }
-      }
-    }
   }
 }
