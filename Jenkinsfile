@@ -15,10 +15,11 @@ podTemplate(label: 'mypod', containers: [
 //        sh 'echo $SLACK_URL $DOCKER_REGISTRY'
       }
       stage('maven package') {
-        sh 'mvn package'
-//        sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
-//        sh 'mvn surefire-report:report-only'
-        }
+        sh 'mvn package "-Dtest=*Test, !*ApplicationTest*" "-Dmaven.exec.skip=true"'
+      }
+      stage('maven reports') {
+        sh 'mvn surefire-report:report-only'
+      }
     }
 
 //      stage('Maven Build') {
