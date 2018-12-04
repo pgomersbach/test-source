@@ -25,6 +25,7 @@ podTemplate(label: 'mypod', containers: [
       }
       stage('create docker image')
         sh 'echo "create docker image"'
+        def customImage = docker.build("my-image:${env.BUILD_ID}")
     }
   }
 }
