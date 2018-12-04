@@ -11,7 +11,6 @@ podTemplate(label: 'mypod', containers: [
     container('maven') {
       stage('git checkout') {
           sh "git clone -b ${GITBRANCH} ${GITURL} ."
-//          sh 'git clone -b master https://github.com/pgomersbach/test-source.git .'
 //        sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
 //        sh 'echo $SLACK_URL $DOCKER_REGISTRY'
       }
@@ -21,16 +20,11 @@ podTemplate(label: 'mypod', containers: [
       stage('maven reports') {
         sh 'mvn surefire-report:report-only'
       }
+      stage('run unit tests') {
+        sh 'echo "run unit tests"'
+      }
+      stage('create docker image')
+        sh 'echo "create docker image"'
     }
-
-//      stage('Maven Build') {
-//          container('maven') {
-//              dir('hello-world-war/') {
-//                  sh 'hostname'
-//                  sh 'hostname -i'
-//                  sh 'mvn clean install'
-//              }
-//          }
-//      }
   }
 }
