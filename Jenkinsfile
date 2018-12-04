@@ -12,7 +12,7 @@ podTemplate(label: 'mypod', containers: [
       container('maven') {
 //        sh 'git clone -b master https://${GIT_USERNAME}:${GIT_PASSWORD}@bitbucket.org/mnwgp/mn-wgp.git'
 //        sh 'echo $SLACK_URL $DOCKER_REGISTRY'
-          sh 'mvn package
+          sh 'mvn package'
 //          sh 'mvn surefire-report:report-only'
       }
     }
